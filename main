@@ -1,0 +1,58 @@
+import pandas as pd
+import statistics as st
+
+link = 'https://data.ny.gov/api/views/5xaw-6ayf/rows.csv?accessType=DOWNLOAD'
+data = pd.read_csv(link, skiprows=1, usecols=[1])
+data.to_csv(r'test.csv', index=False)
+
+info = pd.read_csv('test.csv', delimiter=' ')
+info = info.values.tolist()
+numba = []
+
+ball = pd.read_csv(link, skiprows=1, usecols=[2])
+ball.to_csv(r'testball.csv', index=False)
+ball = pd.read_csv('testball.csv')
+ball = ball.values.tolist()
+
+mega = []
+for y in ball:
+    for h in y:
+        int(h)
+        mega.append(h)
+num6 = st.mode(mega)
+
+for i in info:
+    for j in i:
+        int(j)
+        numba.append(j)
+
+
+def remove(a):
+    return [value for value in numba if value != a]
+
+
+num1 = st.mode(numba)
+numba = remove(num1)
+
+num2 = st.mode(numba)
+numba = remove(num2)
+
+num3 = st.mode(numba)
+numba = remove(num3)
+
+num4 = st.mode(numba)
+numba = remove(num4)
+
+num5 = st.mode(numba)
+numba = remove(num5)
+
+print('Numbers :', num1, num2, num3, num4, num5, 'MegaBall: ', num6)
+
+key = [num1, num2, num3, num4, num5, num6]
+
+print(key)
+
+avg = []
+for i in range(0, len(info)):
+    avg.append(sum(info[i])/5)
+print('The Average of these numbers should be: ', sum(avg)/len(info))
